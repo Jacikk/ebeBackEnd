@@ -61,3 +61,5 @@ C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\obj\Debug\netcoreapp3
 C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EbeBackEnd.dll
 C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EbeBackEnd.pdb
 C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EbeBackEnd.genruntimeconfig.cache
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EbeBackEnd.dll
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EbeBackEnd.pdb

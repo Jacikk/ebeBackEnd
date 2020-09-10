@@ -10,7 +10,7 @@ namespace EBE_Backend
         private int id, institutionId;
         private int addressNumber, addressId;
         private Address address;
-        private Instituition instituition;
+        private Institution institution;
 
         private string
             name,
@@ -65,7 +65,7 @@ namespace EBE_Backend
             this.addressId = addressId;
 
             address.GetById(this.addressId);
-            instituition.GetById(this.instituitionId);
+            institution.GetById(this.institutionId);
         }
 
         public int ID { get => id; set => id = value; }
@@ -155,7 +155,7 @@ namespace EBE_Backend
             }
         }
 
-        public Instituition GetById(int id)
+        public Institution GetById(int id)
         {
 
             string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
@@ -164,7 +164,7 @@ namespace EBE_Backend
 
             connection.Open();
 
-            string statement = "select * from Instituition";
+            string statement = "select * from Institution";
 
             using var cmd = new MySqlCommand(statement, connection);
 
@@ -238,7 +238,7 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "update Instituition set addressId ='" + addressId + "', name= '" + name + "', birthDate= '" + birthDate + "', sex= '" + sex + "', cpf= '" + cpf + "', institution= '" + institution + "', role= '" + role + "', acessLevel= '" + acessLevel + "', email= '" + email + "', password= '" + password + "', description= '" + description + "', medicalCares= '" + medicalCares + "', avatar= '" + avatarUrl + "', addressNumber= '" + addressNumber + "', addressReference= '" + addressReference + "' where id =" + id + ";";
+                cmd.CommandText = "update Institution set addressId ='" + addressId + "', name= '" + name + "', birthDate= '" + birthDate + "', sex= '" + sex + "', cpf= '" + cpf + "', institution= '" + institution + "', role= '" + role + "', acessLevel= '" + acessLevel + "', email= '" + email + "', password= '" + password + "', description= '" + description + "', medicalCares= '" + medicalCares + "', avatar= '" + avatarUrl + "', addressNumber= '" + addressNumber + "', addressReference= '" + addressReference + "' where id =" + id + ";";
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
