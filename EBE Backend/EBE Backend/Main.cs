@@ -11,7 +11,8 @@ namespace EBE_Backend
     {
         static void Main()
         {
-            
+            Address ads = new Address(1, "1", "1", "1", "1", "1", "1");
+            ads.ReadTable();
         }
     }
 

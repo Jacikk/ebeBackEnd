@@ -8,19 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Management" Version="4.7.0" />
     <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
+    <PackageReference Include="System.Security.Principal.Windows" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Installer for Windows\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySQL.Utility">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL for Visual Studio 1.2.9\Dependencies\MySQL.Utility.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.VisualStudio.CustomAction">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL for Visual Studio 1.2.9\Dependencies\MySql.VisualStudio.CustomAction.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
 using MySql.Data.MySqlClient;
 
 namespace EBE_Backend
@@ -62,11 +59,19 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "INSERT INTO Address (CEP, city, country, street, state, district) VALUES ( '" + this.cep + "', '" + this.city + "', '" + this.country + "', '" + this.street + "', '" + this.state + "', '" + this.district + "');";
+                cmd.CommandText = "INSERT INTO Address (CEP, city, country, street, state, district) VALUES ( @cep, @city, @country, @street, @state, @district);";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@cep", this.cep);
+                cmd.Parameters.AddWithValue("@city", this.city);
+                cmd.Parameters.AddWithValue("@country", this.country);
+                cmd.Parameters.AddWithValue("@street", this.street);
+                cmd.Parameters.AddWithValue("@state", this.state);
+                cmd.Parameters.AddWithValue("@district", this.district);
+ 
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
                 Console.WriteLine(ex);
             }
@@ -175,7 +180,15 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "update Address set cep= '" + this.cep + "', city = '" + this.city + "', country = '" + this.country + "', street = '" + this.street + "', state = '" + this.state + "', district = '" + this.district + "' where id =" + this.id + ";";
+                cmd.CommandText = "update Address set cep= @cep, city = @city, country = @country, street = @street, state = @state, district = @district where id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
+                cmd.Parameters.AddWithValue("@cep", this.cep);
+                cmd.Parameters.AddWithValue("@city", this.city);
+                cmd.Parameters.AddWithValue("@country", this.country);
+                cmd.Parameters.AddWithValue("@street", this.street);
+                cmd.Parameters.AddWithValue("@state", this.state);
+                cmd.Parameters.AddWithValue("@district", this.district);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -201,7 +214,9 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "delete from Address where Id = " + this.id + ";";
+                cmd.CommandText = "delete from Address where Id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("id" + this.id + "deletado");
             }

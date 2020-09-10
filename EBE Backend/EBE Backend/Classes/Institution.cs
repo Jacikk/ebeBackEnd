@@ -88,7 +88,18 @@ namespace EBE_Backend.Classes
                 {
                     staff += "," + this.representantes[i].ToString();
                 } 
-                cmd.CommandText = "INSERT INTO Instituition (addressId, name, CNPJ, email, password, discription, avatar, addressNumber, addressReference, staff ) VALUES ( '" + this.addressId + "', '" + this.name + "', '" + this.cnpj + "', '" + this.email + "', '" + this.password + "', '" + this.description + "', '" + this.avatarUrl + "', '" + this.addressNumber + "', '" + this.addressReference + "', '" + staff + "');";
+                cmd.CommandText = "INSERT INTO Instituition (addressId, name, CNPJ, email, password, description, avatar, addressNumber, addressReference, staff ) VALUES ( @addressId, @name, @cnpj, @email, @password, @description, @avatarUrl, @addressNumber, @addressReference, @staf)";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@addressId", this.addressId);
+                cmd.Parameters.AddWithValue("@name", this.name);
+                cmd.Parameters.AddWithValue("@cnpj", this.cnpj);
+                cmd.Parameters.AddWithValue("@email", this.email);
+                cmd.Parameters.AddWithValue("@password", this.password);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
+                cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
+                cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
+                cmd.Parameters.AddWithValue("@staff", staff);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
             }
@@ -235,8 +246,19 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update Instituition set addressId ='" + this.addressId + "', name= '" + this.name + "', CNPJ= '" + this.cnpj + "', email= '" + this.email + 
-                    "', password= '" + this.password + "', discription= '" + this.description + "', avatar= '" + this.avatarUrl + "', addressNumber= '" + this.addressNumber + "', addressReference= '" + this.addressReference + "', staff ='" + staff + "' where id =" + id + ";";
+                cmd.CommandText = "update Instituition set addressId = @addressId, name = @name, CNPJ = @cnpj, email = @email, password = @password, discription = @description, avatar = @avatarUrl, addressNumber = @addressNumber, addressReference = @addressReference, staff = @staff where id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
+                cmd.Parameters.AddWithValue("@addressId", this.addressId);
+                cmd.Parameters.AddWithValue("@name", this.name);
+                cmd.Parameters.AddWithValue("@cnpj", this.cnpj);
+                cmd.Parameters.AddWithValue("@email", this.email);
+                cmd.Parameters.AddWithValue("@password", this.password);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
+                cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
+                cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
+                cmd.Parameters.AddWithValue("@staff", staff);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -262,7 +284,9 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from Instituition where Id = " + this.id + ";";
+                cmd.CommandText = "delete from Instituition where Id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("id" + this.id + "deletado");
             }

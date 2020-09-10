@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vinic\\Desktop\\EBE Backend\\EBE Backend\\EBE Backend\\EBE Backend.csproj": {}
+    "C:\\Users\\vinic\\Desktop\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vinic\\Desktop\\EBE Backend\\EBE Backend\\EBE Backend\\EBE Backend.csproj": {
+    "C:\\Users\\vinic\\Desktop\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vinic\\Desktop\\EBE Backend\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
-        "projectName": "EBE Backend",
-        "projectPath": "C:\\Users\\vinic\\Desktop\\EBE Backend\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
+        "projectUniqueName": "C:\\Users\\vinic\\Desktop\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd.csproj",
+        "projectName": "EbeBackEnd",
+        "projectPath": "C:\\Users\\vinic\\Desktop\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd.csproj",
         "packagesPath": "C:\\Users\\vinic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vinic\\Desktop\\EBE Backend\\EBE Backend\\EBE Backend\\obj\\",
+        "outputPath": "C:\\Users\\vinic\\Desktop\\EbeBackEnd\\EbeBackEnd\\EbeBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -40,20 +40,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "dependencies": {
-            "System.Configuration.ConfigurationManager": {
-              "target": "Package",
-              "version": "[4.7.0, )"
-            },
-            "System.Management": {
-              "target": "Package",
-              "version": "[4.7.0, )"
-            },
-            "System.Security.Permissions": {
-              "target": "Package",
-              "version": "[4.7.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

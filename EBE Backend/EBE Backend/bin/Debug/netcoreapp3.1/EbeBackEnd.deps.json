@@ -6,17 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "EBE Backend/1.0.0": {
+      "EbeBackEnd/1.0.0": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.7.0",
           "System.Management": "4.7.0",
           "System.Security.Permissions": "4.7.0",
-          "MySql.Data": "8.0.18.0",
-          "MySQL.Utility": "8.10.3.0",
-          "MySql.VisualStudio.CustomAction": "1.0.1.0"
+          "MySql.Data": "8.0.18.0"
         },
         "runtime": {
-          "EBE Backend.dll": {}
+          "EbeBackEnd.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
@@ -173,27 +171,11 @@
             "fileVersion": "8.0.18.0"
           }
         }
-      },
-      "MySQL.Utility/8.10.3.0": {
-        "runtime": {
-          "MySQL.Utility.dll": {
-            "assemblyVersion": "8.10.3.0",
-            "fileVersion": "8.10.3.0"
-          }
-        }
-      },
-      "MySql.VisualStudio.CustomAction/1.0.1.0": {
-        "runtime": {
-          "MySql.VisualStudio.CustomAction.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
-          }
-        }
       }
     }
   },
   "libraries": {
-    "EBE Backend/1.0.0": {
+    "EbeBackEnd/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -283,16 +265,6 @@
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
     },
     "MySql.Data/8.0.18.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MySQL.Utility/8.10.3.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "MySql.VisualStudio.CustomAction/1.0.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

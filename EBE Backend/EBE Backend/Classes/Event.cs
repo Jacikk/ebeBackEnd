@@ -76,7 +76,18 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "INSERT INTO Events (addressId, eventName, starting, ending, discription, manager, avatar, addressNumber, addressReference) VALUES ( '" + this.addressId + "', '" + this.eventName + "', '" + this.starting + "', '" + this.ending + "', '" + this.description + "', '" + this.manager + "', '" + this.avatar + "', '" + this.addressNumber + "', '" + this.addressReference + "');";
+                cmd.CommandText = "INSERT INTO Events (addressId, eventName, starting, ending, description, manager, avatar, addressNumber, addressReference) VALUES (@addressId, @eventName, @starting, @ending, @description, @manager, @avatar, @addressNumber, @addressReference);";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@addressId", this.address);
+                cmd.Parameters.AddWithValue("@eventName", this.eventName);
+                cmd.Parameters.AddWithValue("@starting", this.starting);
+                cmd.Parameters.AddWithValue("@ending", this.ending);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@avatar", this.avatar);
+                cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
+                cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
+                cmd.Parameters.AddWithValue("@manager", this.manager);
+
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
             }
@@ -193,7 +204,18 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update Events set addressId= '" + this.addressId + "', eventName = '" + this.eventName + "', starting = '" + this.starting + "', ending = '" + this.ending + "', discription = '" + this.description + "', manager = '" + this.manager + "', avatar = '" + this.avatar + "', addressNumber = '" + this.addressNumber + "', addressReference = '" + this.addressReference + "' where id =" + this.id + ";";
+                cmd.CommandText = "update Events set addressId= @addressId, eventName = @eventName, starting = @starting, ending = @ending, discription = @description, manager = @manager, avatar = @avatar, addressNumber = @addressNumber, addressReference = @addressReference where id =@id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
+                cmd.Parameters.AddWithValue("@addressId", this.address);
+                cmd.Parameters.AddWithValue("@eventName", this.eventName);
+                cmd.Parameters.AddWithValue("@starting", this.starting);
+                cmd.Parameters.AddWithValue("@ending", this.ending);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@avatar", this.avatar);
+                cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
+                cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
+                cmd.Parameters.AddWithValue("@manager", this.manager);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -219,7 +241,9 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from Events where Id = " + this.id + ";";
+                cmd.CommandText = "delete from Events where Id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("id" + this.id + "deletado");
             }
