@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Classes"
   ],
-  "SelectedNode": "\\EbeBackEnd.csproj",
+  "SelectedNode": "\\Classes\\User.cs",
   "PreviewInSolutionExplorer": false
 }
