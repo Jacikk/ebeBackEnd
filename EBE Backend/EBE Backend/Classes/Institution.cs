@@ -17,8 +17,6 @@ namespace EBE_Backend.Classes
             avatarUrl,
             addressReference;
 
-        private int[] representantes;
-
         private int id, addressNumber, addressId;
 
         private Address address;
@@ -33,8 +31,7 @@ namespace EBE_Backend.Classes
             string description,
             string avatarUrl,
             string addressReference,
-            int addressNumber,
-            int[] representantes)//max 10
+            int addressNumber)
         {
             this.id = id;
             this.addressId = addressId;
@@ -46,7 +43,6 @@ namespace EBE_Backend.Classes
             this.avatarUrl = avatarUrl;
             this.addressNumber = addressNumber;
             this.addressReference = addressReference;
-            this.representantes = representantes;
 
             address.GetById(this.addressId);
         }
@@ -57,7 +53,6 @@ namespace EBE_Backend.Classes
         public string Password { get => password; set => password = value; }
         public string Description { get => description; set => description = value; }
         public string AvatarUrl { get => avatarUrl; set => avatarUrl = value; }
-        public int[] Representantes { get => representantes; set => representantes = value; }
         public string AddressReference { get => addressReference; set => addressReference = value; }
         public int AddressNumber { get => addressNumber; set => addressNumber = value; }
         public int Id { get => id; set => id = value; }
@@ -82,13 +77,8 @@ namespace EBE_Backend.Classes
 
             try
             {
-                string staff = this.representantes[0].ToString();
 
-                for (int i = 1; i < 10; i++)
-                {
-                    staff += "," + this.representantes[i].ToString();
-                } 
-                cmd.CommandText = "INSERT INTO Instituition (addressId, name, CNPJ, email, password, description, avatar, addressNumber, addressReference, staff ) VALUES ( @addressId, @name, @cnpj, @email, @password, @description, @avatarUrl, @addressNumber, @addressReference, @staf)";
+                cmd.CommandText = "INSERT INTO Instituition (addressId, name, CNPJ, email, password, description, avatar, addressNumber, addressReference ) VALUES ( @addressId, @name, @cnpj, @email, @password, @description, @avatarUrl, @addressNumber, @addressReference)";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
                 cmd.Parameters.AddWithValue("@name", this.name);
@@ -99,7 +89,6 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
-                cmd.Parameters.AddWithValue("@staff", staff);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
             }
@@ -132,8 +121,8 @@ namespace EBE_Backend.Classes
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id {0}, Name {1}, CNPJ {2}, email {3}, password {4}, discription {5}, avatarUrl {6}, staff {7} ",
-                        reader.GetInt32(0), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(8), reader.GetString(7));
+                    Console.WriteLine("Id {0}, Name {1}, CNPJ {2}, email {3}, password {4}, description {5}, avatarUrl {6}",
+                        reader.GetInt32(0), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
                     this.address.GetById(reader.GetInt32(1));
                     Console.WriteLine("cep:" + this.address.Cep + " Numero: " + reader.GetInt32(9) + "cidade: " + this.address.City + " pais: " + this.address.Country + " rua: " + this.address.Street + " estado: " + this.address.State + " bairro: " + this.address.District + " referencia: " + reader.GetString(10));
                    
@@ -171,21 +160,6 @@ namespace EBE_Backend.Classes
                     if (reader.GetInt32(0) == id)
                     {
 
-                        string[] staff = reader.GetString(7).Split(',');
-                        
-
-                        for (int i = 0; i < 10; i++)
-                        {
-                            if (this.representantes[i] != default)
-                            {
-                                this.representantes[i] = Int32.Parse(staff[i]);
-                            }
-                            else
-                            {
-                                this.representantes[i] = 0;
-                            }
-
-                        }
                         this.id = reader.GetInt32(0);
                         this.addressId = reader.GetInt32(1);
                         this.name = reader.GetString(2);
@@ -193,9 +167,9 @@ namespace EBE_Backend.Classes
                         this.email = reader.GetString(4);
                         this.password = reader.GetString(5);
                         this.description = reader.GetString(6);
-                        this.avatarUrl = reader.GetString(8);
-                        this.addressNumber = reader.GetInt32(9);
-                        this.addressReference = reader.GetString(10);
+                        this.avatarUrl = reader.GetString(7);
+                        this.addressNumber = reader.GetInt32(8);
+                        this.addressReference = reader.GetString(9);
 
                         idFound = true;
                     }
@@ -229,24 +203,9 @@ namespace EBE_Backend.Classes
                 Connection = connection
             };
 
-            string staff = new string (this.representantes[0].ToString());
-
-            for (int i = 1; i < 10; i++)
-            {
-                if (this.representantes[i] != default)
-                {
-                    staff += "," + this.representantes[i].ToString();
-                }
-                else
-                {
-                    staff += ",0";
-                }
-
-            }
-
             try
             {
-                cmd.CommandText = "update Instituition set addressId = @addressId, name = @name, CNPJ = @cnpj, email = @email, password = @password, discription = @description, avatar = @avatarUrl, addressNumber = @addressNumber, addressReference = @addressReference, staff = @staff where id = @id;";
+                cmd.CommandText = "update Instituition set addressId = @addressId, name = @name, CNPJ = @cnpj, email = @email, password = @password, discription = @description, avatar = @avatarUrl, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
@@ -258,7 +217,6 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
-                cmd.Parameters.AddWithValue("@staff", staff);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }

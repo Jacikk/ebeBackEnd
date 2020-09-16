@@ -5,30 +5,25 @@ using MySql.Data.MySqlClient;
 
 namespace EBE_Backend.Classes
 {
-    class Images
+    class Institution_has_User
     {
-        int id, eventId;
-        string url;
+        private int institution_Id, user_Id;
 
-        public Images(int id, int eventId, string url)
+        public Institution_has_User(int instituiton_id, int user_id)
         {
-            this.id = id;
-            this.eventId = eventId;
-            this.url = url;
+            this.institution_Id = instituiton_id;
+            this.user_Id = user_id;
         }
 
-        public int Id { get => id; set => id = value; }
-        public int EventId { get => eventId; set => eventId = value; }
-        public string Url { get => url; set => url = value; }
+        public int Instituiton_id { get => institution_Id; set => institution_Id = value; }
+        public int User_id { get => user_Id; set => user_Id = value; }
 
-        ~Images()
+        ~Institution_has_User()
         {
-            Console.WriteLine("Image destructor was called. Open fire!");
+            Console.WriteLine("Institution_has_User destructor was called. Open fire!");
         }
-
-        public void Create( )
+        public void Create()
         {
-
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
 
             connection.Open();
@@ -40,11 +35,11 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "INSERT INTO EventsImages (idImage, idEvents, imageAddress) VALUES ( @id, @eventId, @url);";
+                cmd.CommandText = "INSERT INTO Institution_has_User (Institution_Id, User_Id) VALUES ( @Institution_Id, @User_Id);";
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@id", this.id);
-                cmd.Parameters.AddWithValue("@eventId", this.eventId);
-                cmd.Parameters.AddWithValue("@url", this.url);
+                cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
+                cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
+
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
             }
@@ -66,7 +61,7 @@ namespace EBE_Backend.Classes
 
             connection.Open();
 
-            string statement = "select * from EventsImages";
+            string statement = "select * from Institution_has_User";
 
             using var cmd = new MySqlCommand(statement, connection);
 
@@ -76,8 +71,8 @@ namespace EBE_Backend.Classes
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id: {0}, eventId: {1}, url: {2}, ",
-                        reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                    Console.WriteLine("Institution_Id: {0}, User_Id: {1}",
+                        reader.GetInt32(0), reader.GetInt32(1));
                 }
             }
             catch (Exception ex)
@@ -87,57 +82,6 @@ namespace EBE_Backend.Classes
             finally
             {
                 connection.Close();
-            }
-        }
-
-        public Images GetById(int id)
-        {
-            string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
-            var idFound = false;
-
-            using var connection = new MySqlConnection(url);
-
-            connection.Open();
-
-            string statement = "select * from EventsImages";
-
-            using var cmd = new MySqlCommand(statement, connection);
-
-            using MySqlDataReader reader = cmd.ExecuteReader();
-
-            try
-            {
-                while (reader.Read())
-                {
-                    if (reader.GetInt32(0) == id)
-                    {
-
-                        this.id = reader.GetInt32(0);
-                        this.eventId = reader.GetInt32(1);
-                        this.url = reader.GetString(2);
-
-                        idFound = true;
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            finally
-            {
-
-                connection.Close();
-            }
-
-            if(idFound)
-            {
-                return this;
-            }
-            else
-            {
-                return null;
             }
         }
 
@@ -154,11 +98,10 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update EventsImages set idEvents= @eventId, imageAddress = @url where id =@id;";
+                cmd.CommandText = "update Institution_has_User set Institution_Id= @Institution_Id, User_Id = @User_Id where id = @id;";
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@id", this.id);
-                cmd.Parameters.AddWithValue("@eventId", this.eventId);
-                cmd.Parameters.AddWithValue("@url", this.url);
+                cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
+                cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -171,7 +114,7 @@ namespace EBE_Backend.Classes
                 connection.Close();
             }
         }
-        public void Delete( )
+        /*public void Delete()
         {
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
 
@@ -184,7 +127,7 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from EventsImages where Id = @id";
+                cmd.CommandText = "delete from Institution_has_User where Id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
@@ -198,6 +141,6 @@ namespace EBE_Backend.Classes
             {
                 connection.Close();
             }
-        }
+        }*/
     }
 }
