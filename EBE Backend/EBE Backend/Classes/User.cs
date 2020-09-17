@@ -106,7 +106,7 @@ namespace EBE_Backend
             try
             {
            
-                cmd.CommandText = "INSERT INTO User (addressId, name, birthDate, sex, cpf, rg, institution, role, acessLevel, email, password, description, medicalCares, avatar, addressNumber, addressReference ) VALUES ( '" + this.addressId + "', '" + this.name + "', '" + this.birthDate + "', '" + this.sex + "', '" + this.cpf + "', '" + this.rg + "', '" + this.institutionId + "', '" + this.role + "', '" + this.acessLevel + "', '" + this.email + "', '" + this.password + "', '" + this.description + "', '" + this.medicalCares + "' , '" + this.avatar + "', '" + this.addressNumber + "', '" + this.addressReference + "');";
+                cmd.CommandText = "INSERT INTO User (addressId, name, birthDate, sex, cpf, rg, institution, role, nivelDeAcesso, email, password, description, medicalCares, avatar, addressNumber, addressReference ) VALUES ( '" + this.addressId + "', '" + this.name + "', '" + this.birthDate + "', '" + this.sex + "', '" + this.cpf + "', '" + this.rg + "', '" + this.institutionId + "', '" + this.role + "', '" + this.nivelDeAcesso + "', '" + this.email + "', '" + this.password + "', '" + this.description + "', '" + this.medicalCares + "' , '" + this.avatarUrl + "', '" + this.addressNumber + "', '" + this.addressReference + "');";
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
             }
@@ -139,23 +139,24 @@ namespace EBE_Backend
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id {0}, name {1}, birthDate {2}, sex {3}, cpf {4}, rg {5}, role {6}, acessLevel {7} , email {8}, password {9}, description {10}, medicalCares {11}, avatar {12}, addressNumber {13}, addressReference {14}",
+                    Console.WriteLine("Id {0}, name {1}, birthDate {2}, sex {3}, cpf {4}, rg {5}, role {6}, nivelDeAcesso" +
+                        "l {7} , email {8}, password {9}, description {10}, medicalCares {11}, avatar {12}, addressNumber {13}, addressReference {14}",
                         reader.GetInt32(0), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(11), reader.GetString(12), reader.GetString(13), reader.GetString(14), reader.GetString(15), reader.GetString(16));
                     this.address.GetById(reader.GetInt32(1));
                     Console.WriteLine("cep:" + this.address.Cep + " Numero: " + reader.GetInt32(9) + "cidade: " + this.address.City + " pais: " + this.address.Country + " rua: " + this.address.Street + " estado: " + this.address.State + " bairro: " + this.address.District + " referencia: " + reader.GetString(10));
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            finally
-            {
-                connection.Close();
-            }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
         }
 
-        public Institution GetById(int id)
+        public User GetById(int id)
         {
 
             string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
@@ -174,19 +175,18 @@ namespace EBE_Backend
             {
                 while (reader.Read())
                 {
-                    if (reader.GetInt32(0) == id)
+                    if (reader.GetInt32(0) == id) {
           
                     this.id = reader.GetInt32(0);
                     this.addressId = reader.GetInt32(1);
                     this.name = reader.GetString(2);
-                    this.cnpj = reader.GetString(3);
+                    this.cpf = reader.GetString(3);
                     this.email = reader.GetString(4);
                     this.password = reader.GetString(5);
-                    this.discription = reader.GetString(6);
-                    this.representantes[] = reader.GetInt32(7);
-                    this.avatarUrl = reader.GetString(8);
-                    this.addressNumber = reader.GetInt32(9);
-                    this.addressReference = reader.GetString(10);
+                    this.description = reader.GetString(6);
+                    this.avatarUrl = reader.GetString(7);
+                    this.addressNumber = reader.GetInt32(8);
+                    this.addressReference = reader.GetString(8);
                     }
                     else
                     {
@@ -206,8 +206,9 @@ namespace EBE_Backend
 
             return this;
         }
-        public static void Update(
-            int addresId,
+        public void Update(
+
+            int addressId,
             string name,
             string birthDate,
             string sex,
@@ -215,14 +216,14 @@ namespace EBE_Backend
             string rg,
             string institution,
             string role,
-            int acessLevel,
+            int nivelDeAcesso,
             string email,
             string password,
             string description,
             string medicalCares,
             string avatar,
             int addressNumber,
-            string addressReference,
+            string addressReference
             )
         {
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
@@ -238,7 +239,7 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "update Institution set addressId ='" + addressId + "', name= '" + name + "', birthDate= '" + birthDate + "', sex= '" + sex + "', cpf= '" + cpf + "', institution= '" + institution + "', role= '" + role + "', acessLevel= '" + acessLevel + "', email= '" + email + "', password= '" + password + "', description= '" + description + "', medicalCares= '" + medicalCares + "', avatar= '" + avatarUrl + "', addressNumber= '" + addressNumber + "', addressReference= '" + addressReference + "' where id =" + id + ";";
+                cmd.CommandText = "update Institution set addressId ='" + addressId + "', name= '" + name + "', birthDate= '" + birthDate + "', sex= '" + sex + "', cpf= '" + cpf + "', institution= '" + institution + "', role= '" + role + "', nivelDeAcesso= '" + nivelDeAcesso + "', email= '" + email + "', password= '" + password + "', description= '" + description + "', medicalCares= '" + medicalCares + "', avatar= '" + avatarUrl + "', addressNumber= '" + addressNumber + "', addressReference= '" + addressReference + "' where id =" + id + ";";
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
