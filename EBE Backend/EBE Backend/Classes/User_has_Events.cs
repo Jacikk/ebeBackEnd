@@ -5,24 +5,27 @@ using MySql.Data.MySqlClient;
 
 namespace EBE_Backend.Classes
 {
-    class Institution_has_User
+    class User_has_Events
     {
-        private int institution_Id, user_Id, id;
+        private int id, user_id, events_id;
+        private bool confirmated;
 
-        public Institution_has_User(int id, int instituiton_id, int user_id)
+        public User_has_Events(int id, int user_id, int events_id, bool confirmated)
         {
             this.id = id;
-            this.institution_Id = instituiton_id;
-            this.user_Id = user_id;
+            this.user_id = user_id;
+            this.events_id = events_id;
+            this.confirmated = confirmated;
         }
 
-        public int Instituiton_id { get => institution_Id; set => institution_Id = value; }
-        public int User_id { get => user_Id; set => user_Id = value; }
         public int Id { get => id; set => id = value; }
+        public int User_id { get => user_id; set => user_id = value; }
+        public int Events_id { get => events_id; set => events_id = value; }
+        public bool Confirmated { get => confirmated; set => confirmated = value; }
 
-        ~Institution_has_User()
+        ~User_has_Events()
         {
-            Console.WriteLine("Institution_has_User destructor was called. Open fire!");
+            Console.WriteLine("User_has_Events destructor was called. Open fire!");
         }
         public void Create()
         {
@@ -37,10 +40,11 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "INSERT INTO Institution_has_User (Institution_Id, User_Id) VALUES ( @Institution_Id, @User_Id);";
+                cmd.CommandText = "INSERT INTO User_has_Events (User_id, Events_id, confirmated) VALUES ( @User_id, @Events_id, @confirmated);";
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
-                cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
+                cmd.Parameters.AddWithValue("@User_id", this.user_id);
+                cmd.Parameters.AddWithValue("@Events_id", this.events_id);
+                cmd.Parameters.AddWithValue("@confirmated", this.confirmated);
 
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
@@ -63,18 +67,18 @@ namespace EBE_Backend.Classes
 
             connection.Open();
 
-            string statement = "select * from Institution_has_User";
+            string statement = "select * from User_has_Events";
 
             using var cmd = new MySqlCommand(statement, connection);
 
             using MySqlDataReader reader = cmd.ExecuteReader();
 
             try
-            {
+            {   
                 while (reader.Read())
                 {
-                    Console.WriteLine("id: {0}, Institution_Id: {1}, User_Id: {2}",
-                        reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
+                    Console.WriteLine("id: {0}, User_id: {1}, Events_Id: {2}, confirmated: {3}",
+                        reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2),  reader.GetBoolean(3));
                 }
             }
             catch (Exception ex)
@@ -100,11 +104,13 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update Institution_has_User set Institution_Id= @Institution_Id, User_Id = @User_Id where id = @id;";
+                cmd.CommandText = "update User_has_Events set User_id= @User_id, Events_id = @Events_id, confirmated = @confirmated where id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
-                cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
-                cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
+                cmd.Parameters.AddWithValue("@User_id", this.user_id);
+                cmd.Parameters.AddWithValue("@Events_id", this.events_id);
+                cmd.Parameters.AddWithValue("@confirmated", this.confirmated);
+
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -130,7 +136,7 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from Institution_has_User where Id = @id;";
+                cmd.CommandText = "delete from User_has_Events where Id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();

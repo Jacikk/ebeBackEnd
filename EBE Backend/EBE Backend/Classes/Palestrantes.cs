@@ -5,24 +5,23 @@ using MySql.Data.MySqlClient;
 
 namespace EBE_Backend.Classes
 {
-    class Institution_has_User
+    class Palestrantes
     {
-        private int institution_Id, user_Id, id;
+        private int id, palestrante, subevent_id;
 
-        public Institution_has_User(int id, int instituiton_id, int user_id)
+        public Palestrantes(int id, int palestrante, int subevent_id)
         {
             this.id = id;
-            this.institution_Id = instituiton_id;
-            this.user_Id = user_id;
+            this.palestrante = palestrante;
+            this.subevent_id = subevent_id;
         }
 
-        public int Instituiton_id { get => institution_Id; set => institution_Id = value; }
-        public int User_id { get => user_Id; set => user_Id = value; }
         public int Id { get => id; set => id = value; }
-
-        ~Institution_has_User()
+        public int Palestrante { get => palestrante; set => palestrante = value; }
+        public int Subevent_id { get => subevent_id; set => subevent_id = value; }
+        ~Palestrantes()
         {
-            Console.WriteLine("Institution_has_User destructor was called. Open fire!");
+            Console.WriteLine("Palestrantes destructor was called. Open fire!");
         }
         public void Create()
         {
@@ -37,10 +36,10 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "INSERT INTO Institution_has_User (Institution_Id, User_Id) VALUES ( @Institution_Id, @User_Id);";
+                cmd.CommandText = "INSERT INTO Palestrantes (Palestrante, Subevent_id) VALUES ( @Palestrante, @Subevent_id);";
                 cmd.Prepare();
-                cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
-                cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
+                cmd.Parameters.AddWithValue("@Palestrante", this.palestrante);
+                cmd.Parameters.AddWithValue("@Subevent_id", this.subevent_id);
 
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("cadastrado!");
@@ -63,7 +62,7 @@ namespace EBE_Backend.Classes
 
             connection.Open();
 
-            string statement = "select * from Institution_has_User";
+            string statement = "select * from Palestrantes";
 
             using var cmd = new MySqlCommand(statement, connection);
 
@@ -73,7 +72,7 @@ namespace EBE_Backend.Classes
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("id: {0}, Institution_Id: {1}, User_Id: {2}",
+                    Console.WriteLine("id: {0}, palestrante: {1}, subenvent_Id: {2}",
                         reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2));
                 }
             }
@@ -100,11 +99,11 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update Institution_has_User set Institution_Id= @Institution_Id, User_Id = @User_Id where id = @id;";
+                cmd.CommandText = "update Palestrantes set Palestrante= @Palestrante, Subevent_id = @Subevent_id where id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
-                cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
-                cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
+                cmd.Parameters.AddWithValue("@Palestrante", this.palestrante);
+                cmd.Parameters.AddWithValue("@Subevent_id", this.subevent_id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -130,7 +129,7 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from Institution_has_User where Id = @id;";
+                cmd.CommandText = "delete from Palestrantes where Id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
