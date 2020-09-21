@@ -2,6 +2,7 @@
 using System;
 using System.Dynamic;
 using MySql.Data.MySqlClient;
+using System.Runtime.CompilerServices;
 
 namespace EBE_Backend
 {
@@ -106,9 +107,25 @@ namespace EBE_Backend
             try
             {
            
-                cmd.CommandText = "INSERT INTO User (addressId, name, birthDate, sex, cpf, rg, institution, role, nivelDeAcesso, email, password, description, medicalCares, avatar, addressNumber, addressReference ) VALUES ( '" + this.addressId + "', '" + this.name + "', '" + this.birthDate + "', '" + this.sex + "', '" + this.cpf + "', '" + this.rg + "', '" + this.institutionId + "', '" + this.role + "', '" + this.nivelDeAcesso + "', '" + this.email + "', '" + this.password + "', '" + this.description + "', '" + this.medicalCares + "' , '" + this.avatarUrl + "', '" + this.addressNumber + "', '" + this.addressReference + "');";
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                cmd.CommandText = "INSERT INTO User (addressId, name, birthDate, sex, cpf, rg, institution, role, nivelDeAcesso, email, password, description, medicalCares, avatar, addressNumber, addressReference ) VALUES (@addressId, @name, @birthDate, @sex, @cpf, @rg, @institution, @role, @nivelDeAcesso, @email, @password, @description, @medicalCares, @avatar, @addressNumber, @addressReference )";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@addressId", this.addressId);
+                cmd.Parameters.AddWithValue("@name", this.name);
+                cmd.Parameters.AddWithValue("@birthDate", this.birthDate);
+                cmd.Parameters.AddWithValue("@sex", this.sex);
+                cmd.Parameters.AddWithValue("@cpf", this.cpf);
+                cmd.Parameters.AddWithValue("@rg", this.rg);
+                cmd.Parameters.AddWithValue("@institution", this.institution);
+                cmd.Parameters.AddWithValue("@role", this.role);
+                cmd.Parameters.AddWithValue("@nivelDeAcesso", this.nivelDeAcesso);
+                cmd.Parameters.AddWithValue("@email", this.email);
+                cmd.Parameters.AddWithValue("@password", this.password);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@medicalCares", this.medicalCares);
+                cmd.Parameters.AddWithValue("@avatar", this.avatar);
+                cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
+                cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
+
             }
             catch (Exception ex)
             {
@@ -239,9 +256,27 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "update Institution set addressId ='" + addressId + "', name= '" + name + "', birthDate= '" + birthDate + "', sex= '" + sex + "', cpf= '" + cpf + "', institution= '" + institution + "', role= '" + role + "', nivelDeAcesso= '" + nivelDeAcesso + "', email= '" + email + "', password= '" + password + "', description= '" + description + "', medicalCares= '" + medicalCares + "', avatar= '" + avatarUrl + "', addressNumber= '" + addressNumber + "', addressReference= '" + addressReference + "' where id =" + id + ";";
+                cmd.CommandText = "update Institution set addressId = @addressId, name = @name, birthDate, sex = @sex, cpf = @cpf, rg = @rg, institution = @instituion, role = @role, nivelDeAcesso = @nivelDeAcesso, email = @email, password = @password, description = @description, medicalCares = @medicalCares, avatar = @avatar, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@addressId", this.addressId);
+                cmd.Parameters.AddWithValue("@name", this.name);
+                cmd.Parameters.AddWithValue("@birthDate", this.birthDate);
+                cmd.Parameters.AddWithValue("@sex", this.sex);
+                cmd.Parameters.AddWithValue("@cpf", this.cpf);
+                cmd.Parameters.AddWithValue("@rg", this.rg);
+                cmd.Parameters.AddWithValue("@institution", this.institution);
+                cmd.Parameters.AddWithValue("@role", this.role);
+                cmd.Parameters.AddWithValue("@nivelDeAcesso", this.nivelDeAcesso);
+                cmd.Parameters.AddWithValue("@email", this.email);
+                cmd.Parameters.AddWithValue("@password", this.password);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@medicalCares", this.medicalCares);
+                cmd.Parameters.AddWithValue("@avatar", this.avatar);
+                cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
+                cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
+                
             }
             catch (Exception ex)
             {
@@ -265,9 +300,11 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "delete from User where Id = " + id + ";";
+                cmd.CommandText = "delete from User where Id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
-                Console.WriteLine("id" + id + "deletado");
+                Console.WriteLine("id" + this.id + "deletado");
             }
             catch (Exception ex)
             {
