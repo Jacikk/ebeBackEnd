@@ -15,10 +15,10 @@
 
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Installer for Windows\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Installer for Windows\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="MySQL.Utility">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Installer for Windows\MySQL.Utility.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL for Visual Studio 1.2.9\Dependencies\MySQL.Utility.dll</HintPath>
     </Reference>
   </ItemGroup>
 

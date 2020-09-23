@@ -122,7 +122,7 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@password", this.password);
                 cmd.Parameters.AddWithValue("@description", this.description);
                 cmd.Parameters.AddWithValue("@medicalCares", this.medicalCares);
-                cmd.Parameters.AddWithValue("@avatar", this.avatar);
+                cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
 
@@ -271,7 +271,7 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@password", this.password);
                 cmd.Parameters.AddWithValue("@description", this.description);
                 cmd.Parameters.AddWithValue("@medicalCares", this.medicalCares);
-                cmd.Parameters.AddWithValue("@avatar", this.avatar);
+                cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
                 cmd.ExecuteNonQuery();
@@ -287,7 +287,7 @@ namespace EBE_Backend
                 connection.Close();
             }
         }
-        public static void Delete(int id)
+        public void Delete(int id)
         {
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
 
