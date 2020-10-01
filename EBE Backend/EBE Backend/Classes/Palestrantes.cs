@@ -8,7 +8,10 @@ namespace EBE_Backend.Classes
     class Palestrantes
     {
         private int id, palestrante, subevent_id;
+        public Palestrantes ()
+        {
 
+        }
         public Palestrantes(int id, int palestrante, int subevent_id)
         {
             this.id = id;
@@ -41,8 +44,12 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@Palestrante", this.palestrante);
                 cmd.Parameters.AddWithValue("@Subevent_id", this.subevent_id);
 
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Palestrante cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {

@@ -14,7 +14,10 @@ namespace EBE_Backend
             country,
             state,
             district;
+        public Address() 
+        { 
 
+        }
         public Address(
             int id,
             string cep,
@@ -67,9 +70,13 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@street", this.street);
                 cmd.Parameters.AddWithValue("@state", this.state);
                 cmd.Parameters.AddWithValue("@district", this.district);
- 
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Address cadastrado! Id: " + this.id);
             }
             catch (Exception ex)    
             {

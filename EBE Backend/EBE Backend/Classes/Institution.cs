@@ -19,8 +19,11 @@ namespace EBE_Backend.Classes
 
         private int id, addressNumber, addressId;
 
-        private Address address;
+        private Address address = new Address();
+        public Institution ()
+        {
 
+        }
         public Institution(
             int id,
             int addressId,
@@ -44,7 +47,7 @@ namespace EBE_Backend.Classes
             this.addressNumber = addressNumber;
             this.addressReference = addressReference;
 
-            address.GetById(this.addressId);
+            address.GetById(addressId);
         }
 
         public string Name { get => name; set => name = value; }
@@ -78,7 +81,7 @@ namespace EBE_Backend.Classes
             try
             {
 
-                cmd.CommandText = "INSERT INTO Instituition (addressId, name, CNPJ, email, password, description, avatar, addressNumber, addressReference ) VALUES ( @addressId, @name, @cnpj, @email, @password, @description, @avatarUrl, @addressNumber, @addressReference)";
+                cmd.CommandText = "INSERT INTO Institution (addressId, name, CNPJ, email, password, description, avatar, addressNumber, addressReference ) VALUES ( @addressId, @name, @cnpj, @email, @password, @description, @avatarUrl, @addressNumber, @addressReference)";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
                 cmd.Parameters.AddWithValue("@name", this.name);
@@ -86,11 +89,16 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@email", this.email);
                 cmd.Parameters.AddWithValue("@password", this.password);
                 cmd.Parameters.AddWithValue("@description", this.description);
-                cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
+                cmd.Parameters.AddWithValue("@avatarurl", this.avatarUrl);
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Institution cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {
@@ -111,7 +119,7 @@ namespace EBE_Backend.Classes
 
             connection.Open();
 
-            string statement = "select * from Instituition";
+            string statement = "select * from Institution";
 
             using var cmd = new MySqlCommand(statement, connection);
 
@@ -124,7 +132,7 @@ namespace EBE_Backend.Classes
                     Console.WriteLine("Id {0}, Name {1}, CNPJ {2}, email {3}, password {4}, description {5}, avatarUrl {6}",
                         reader.GetInt32(0), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
                     this.address.GetById(reader.GetInt32(1));
-                    Console.WriteLine("cep:" + this.address.Cep + " Numero: " + reader.GetInt32(9) + "cidade: " + this.address.City + " pais: " + this.address.Country + " rua: " + this.address.Street + " estado: " + this.address.State + " bairro: " + this.address.District + " referencia: " + reader.GetString(10));
+                    Console.WriteLine("cep:" + this.address.Cep + " Numero: " + reader.GetInt32(8) + " cidade: " + this.address.City + " pais: " + this.address.Country + " rua: " + this.address.Street + " estado: " + this.address.State + " bairro: " + this.address.District + " referencia: " + reader.GetString(9));
                    
                 }
             }
@@ -147,7 +155,7 @@ namespace EBE_Backend.Classes
 
             connection.Open();
 
-            string statement = "select * from Instituition";
+            string statement = "select * from Institution";
 
             using var cmd = new MySqlCommand(statement, connection);
 
@@ -205,7 +213,7 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update Instituition set addressId = @addressId, name = @name, CNPJ = @cnpj, email = @email, password = @password, discription = @description, avatar = @avatarUrl, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
+                cmd.CommandText = "update Institution set addressId = @addressId, name = @name, CNPJ = @cnpj, email = @email, password = @password, discription = @description, avatar = @avatarUrl, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
@@ -242,7 +250,7 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from Instituition where Id = @id;";
+                cmd.CommandText = "delete from Institution where Id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();

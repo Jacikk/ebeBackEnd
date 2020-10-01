@@ -64,9 +64,33 @@ C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\bin\Debug\netcoreapp3
 C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\vinic\Desktop\EBE Backend\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csproj.CoreCompileInputs.cache
-C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csprojAssemblyReference.cache
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\EBE Backend.exe
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\EBE Backend.deps.json
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\EBE Backend.runtimeconfig.json
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\EBE Backend.runtimeconfig.dev.json
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\EBE Backend.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\EBE Backend.pdb
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Management.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\System.Windows.Extensions.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Management.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\MySql.Data.dll
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\bin\Debug\netcoreapp3.1\MySQL.Utility.dll
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.AssemblyInfoInputs.cache
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.AssemblyInfo.cs
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csproj.CoreCompileInputs.cache
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csproj.CopyComplete
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.dll
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.pdb
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.genruntimeconfig.cache
+C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csprojAssemblyReference.cache

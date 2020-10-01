@@ -11,6 +11,10 @@ namespace EBE_Backend.Classes
                 events_id,
                 user_id;
 
+        public Managers ()
+        {
+
+        }
         public Managers(int id, int events_id, int user_id)
         {
             this.id = id;
@@ -43,8 +47,12 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@Events_Id", this.events_id);
                 cmd.Parameters.AddWithValue("@User_Id", this.user_id);
 
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Manager cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {

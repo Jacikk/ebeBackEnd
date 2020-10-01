@@ -3,6 +3,9 @@ using System;
 using System.Dynamic;
 using MySql.Data.MySqlClient;
 using System.Runtime.CompilerServices;
+using MySql.Utility.Classes.MySqlX;
+using System.Collections;
+using System.Net.Http.Headers;
 
 namespace EBE_Backend
 {
@@ -10,12 +13,12 @@ namespace EBE_Backend
     {
         private int id, institutionId;
         private int addressNumber, addressId;
-        private Address address;
-        private Institution institution;
+        private Address address = new Address();
+        private Institution institution = new Institution();
 
+        private bool sex;
         private string
             name,
-            sex,
             birthDate,
             cpf,
             rg,
@@ -27,11 +30,13 @@ namespace EBE_Backend
             medicalCares,
             avatarUrl,
             addressReference;
-
+        public User ()
+        {
+        }
         public User(
             int id,
             string name,
-            string sex,
+            bool sex,
             string birthDate,
             string cpf,
             string rg,
@@ -65,13 +70,13 @@ namespace EBE_Backend
             this.addressNumber = addressNumber;
             this.addressId = addressId;
 
-            address.GetById(this.addressId);
-            institution.GetById(this.institutionId);
+            address.GetById(addressId);
+            institution.GetById(institutionId);
         }
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public string Sex { get => sex; set => sex = value; }
+        public bool Sex { get => sex; set => sex = value; }
         public string BirthDate { get => birthDate; set => birthDate = value; }
         public string Cpf { get => cpf; set => cpf = value; }
         public string Rg { get => rg; set => rg = value; }
@@ -92,10 +97,10 @@ namespace EBE_Backend
             Console.WriteLine("User destructor was called. Open fire!");
         }
         
-        public void Create()
+        public User Create()
         {
 
-            using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
+            using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata;UseAffectedRows=True");
 
             connection.Open();
 
@@ -106,8 +111,8 @@ namespace EBE_Backend
 
             try
             {
-           
-                cmd.CommandText = "INSERT INTO User (addressId, name, birthDate, sex, cpf, rg, institution, role, nivelDeAcesso, email, password, description, medicalCares, avatar, addressNumber, addressReference ) VALUES (@addressId, @name, @birthDate, @sex, @cpf, @rg, @institution, @role, @nivelDeAcesso, @email, @password, @description, @medicalCares, @avatar, @addressNumber, @addressReference )";
+                Console.WriteLine("Email create " + this.email);
+                cmd.CommandText = "INSERT INTO User (addressId, name, birthDate, sex, cpf, rg, institution, role, acesslevel, email, password, description, medicalCares, avatar, addressNumber, addressReference ) VALUES (@addressId, @name, @birthDate, @sex, @cpf, @rg, @institution, @role, @nivelDeAcesso, @email, @password, @description, @medicalCares, @avatar, @addressNumber, @addressReference);";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
                 cmd.Parameters.AddWithValue("@name", this.name);
@@ -115,7 +120,7 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@sex", this.sex);
                 cmd.Parameters.AddWithValue("@cpf", this.cpf);
                 cmd.Parameters.AddWithValue("@rg", this.rg);
-                cmd.Parameters.AddWithValue("@institution", this.institution);
+                cmd.Parameters.AddWithValue("@institution", this.institutionId);
                 cmd.Parameters.AddWithValue("@role", this.role);
                 cmd.Parameters.AddWithValue("@nivelDeAcesso", this.nivelDeAcesso);
                 cmd.Parameters.AddWithValue("@email", this.email);
@@ -126,19 +131,28 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
 
+                int affectedRows = cmd.ExecuteNonQuery();
+                if(affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("User cadastrado! Id: " + this.id);
+
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex);
+                
             }
             finally
             {
-                connection.Close();
+            connection.Close();
             }
+            return this;
 
         }
 
-        public void ReadTable()
+        public ArrayList ReadTable()
         {
             string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
 
@@ -152,64 +166,32 @@ namespace EBE_Backend
 
             using MySqlDataReader reader = cmd.ExecuteReader();
 
-            try
-            {
-                while (reader.Read())
-                {
-                    Console.WriteLine("Id {0}, name {1}, birthDate {2}, sex {3}, cpf {4}, rg {5}, role {6}, nivelDeAcesso" +
-                        "l {7} , email {8}, password {9}, description {10}, medicalCares {11}, avatar {12}, addressNumber {13}, addressReference {14}",
-                        reader.GetInt32(0), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(11), reader.GetString(12), reader.GetString(13), reader.GetString(14), reader.GetString(15), reader.GetString(16));
-                    this.address.GetById(reader.GetInt32(1));
-                    Console.WriteLine("cep:" + this.address.Cep + " Numero: " + reader.GetInt32(9) + "cidade: " + this.address.City + " pais: " + this.address.Country + " rua: " + this.address.Street + " estado: " + this.address.State + " bairro: " + this.address.District + " referencia: " + reader.GetString(10));
-                }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-        }
-
-        public User GetById(int id)
-        {
-
-            string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
-
-            using var connection = new MySqlConnection(url);
-
-            connection.Open();
-
-            string statement = "select * from Institution";
-
-            using var cmd = new MySqlCommand(statement, connection);
-
-            using MySqlDataReader reader = cmd.ExecuteReader();
+            ArrayList UserList = new ArrayList();
 
             try
             {
                 while (reader.Read())
                 {
-                    if (reader.GetInt32(0) == id) {
-          
-                    this.id = reader.GetInt32(0);
-                    this.addressId = reader.GetInt32(1);
-                    this.name = reader.GetString(2);
-                    this.cpf = reader.GetString(3);
-                    this.email = reader.GetString(4);
-                    this.password = reader.GetString(5);
-                    this.description = reader.GetString(6);
-                    this.avatarUrl = reader.GetString(7);
-                    this.addressNumber = reader.GetInt32(8);
-                    this.addressReference = reader.GetString(8);
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    User UserToList = new User ();
+                    UserToList.id = reader.GetInt32(0);
+                    UserToList.addressId = reader.GetInt32(1);
+                    UserToList.name = reader.GetString(2);
+                    UserToList.birthDate = reader.GetString(3);
+                    UserToList.sex = reader.GetBoolean(4);
+                    UserToList.cpf = reader.GetString(5);
+                    UserToList.rg = reader.GetString(6);
+                    UserToList.institutionId = reader.GetInt32(7);
+                    UserToList.role = reader.GetString(8);
+                    UserToList.nivelDeAcesso = reader.GetString(9);
+                    UserToList.email = reader.GetString(10);
+                    UserToList.password = reader.GetString(11);
+                    UserToList.description = reader.GetString(12);
+                    UserToList.medicalCares = reader.GetString(13);
+                    UserToList.avatarUrl = reader.GetString(14);
+                    UserToList.addressNumber = reader.GetInt32(15);
+                    UserToList.addressReference = reader.GetString(16);
 
+                    UserList.Add(UserToList);
                 }
             }
             catch (Exception ex)
@@ -220,28 +202,71 @@ namespace EBE_Backend
             {
                 connection.Close();
             }
-
-            return this;
+            return UserList;
         }
-        public void Update(
 
-            int addressId,
-            string name,
-            string birthDate,
-            string sex,
-            string cpf,
-            string rg,
-            string institution,
-            string role,
-            int nivelDeAcesso,
-            string email,
-            string password,
-            string description,
-            string medicalCares,
-            string avatar,
-            int addressNumber,
-            string addressReference
-            )
+        public User GetById(int id)
+        {
+            bool idFound = false;
+
+            string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
+
+            using var connection = new MySqlConnection(url);
+
+            connection.Open();
+
+            string statement = "select * from user";
+
+            using var cmd = new MySqlCommand(statement, connection);
+
+            using MySqlDataReader reader = cmd.ExecuteReader();
+
+            try
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) == id) { 
+          
+                        this.id = reader.GetInt32(0);
+                        this.addressId = reader.GetInt32(1);
+                        this.name = reader.GetString(2);
+                        this.birthDate = reader.GetString(3);
+                        this.sex = reader.GetBoolean(4);
+                        this.cpf = reader.GetString(5);
+                        this.rg = reader.GetString(6);
+                        this.institutionId = reader.GetInt32(7);
+                        this.role = reader.GetString(8);
+                        this.nivelDeAcesso = reader.GetString(9);
+                        this.email = reader.GetString(10);
+                        this.password = reader.GetString(11);
+                        this.description = reader.GetString(12);
+                        this.medicalCares = reader.GetString(13);
+                        this.avatarUrl = reader.GetString(14);
+                        this.addressNumber = reader.GetInt32(15);
+                        this.addressReference = reader.GetString(16);
+
+                        idFound = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            if (idFound)
+            {
+                return this;
+            }else
+            {
+                return null;
+            }
+            
+        }
+        public void Update( )
         {
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
 
@@ -256,15 +281,15 @@ namespace EBE_Backend
 
             try
             {
-                cmd.CommandText = "update Institution set addressId = @addressId, name = @name, birthDate, sex = @sex, cpf = @cpf, rg = @rg, institution = @instituion, role = @role, nivelDeAcesso = @nivelDeAcesso, email = @email, password = @password, description = @description, medicalCares = @medicalCares, avatar = @avatar, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
-                cmd.ExecuteNonQuery();
+                cmd.CommandText = "update User set addressId = @addressId, name = @name, birthDate, sex = @sex, cpf = @cpf, rg = @rg, institution = @instituion, role = @role, acesslevel = @nivelDeAcesso, email = @email, password = @password, description = @description, medicalCares = @medicalCares, avatar = @avatar, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
+                cmd.Prepare();
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
                 cmd.Parameters.AddWithValue("@name", this.name);
                 cmd.Parameters.AddWithValue("@birthDate", this.birthDate);
                 cmd.Parameters.AddWithValue("@sex", this.sex);
                 cmd.Parameters.AddWithValue("@cpf", this.cpf);
                 cmd.Parameters.AddWithValue("@rg", this.rg);
-                cmd.Parameters.AddWithValue("@institution", this.institution);
+                cmd.Parameters.AddWithValue("@institution", this.institutionId);
                 cmd.Parameters.AddWithValue("@role", this.role);
                 cmd.Parameters.AddWithValue("@nivelDeAcesso", this.nivelDeAcesso);
                 cmd.Parameters.AddWithValue("@email", this.email);
@@ -274,6 +299,7 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@avatar", this.avatarUrl);
                 cmd.Parameters.AddWithValue("@addressNumber", this.addressNumber);
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
+                cmd.Parameters.AddWithValue("@id",this.id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
                 

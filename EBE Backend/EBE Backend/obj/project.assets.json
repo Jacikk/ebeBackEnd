@@ -741,11 +741,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
+      "projectUniqueName": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
       "projectName": "EBE Backend",
-      "projectPath": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
+      "projectPath": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
       "packagesPath": "C:\\Users\\vinic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\ebeBackEnd\\EBE Backend\\EBE Backend\\obj\\",
+      "outputPath": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend\\EBE Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

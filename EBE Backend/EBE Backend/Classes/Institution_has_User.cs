@@ -9,6 +9,10 @@ namespace EBE_Backend.Classes
     {
         private int institution_Id, user_Id, id;
 
+        public Institution_has_User ()
+        {
+
+        }
         public Institution_has_User(int id, int instituiton_id, int user_id)
         {
             this.id = id;
@@ -42,8 +46,12 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@Institution_Id", this.institution_Id);
                 cmd.Parameters.AddWithValue("@User_Id", this.user_Id);
 
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Institution_has_User cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {

@@ -19,7 +19,10 @@ namespace EBE_Backend.Classes
         private int id, addressId, addressNumber;
 
         private Address address;
+        public Event()
+        {
 
+        }
         public Event(
             int id,
             int addressId,
@@ -88,8 +91,12 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
                 cmd.Parameters.AddWithValue("@manager", this.manager);
 
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Event cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {

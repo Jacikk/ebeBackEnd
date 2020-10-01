@@ -13,13 +13,14 @@ namespace EBE_Backend.Classes
             name,
             starting,
             ending,
-            description,
-            palestrantes,
-            manager;
+            description;
         
+        public SubEvent ()
+        {
 
-        public SubEvent(int id, int eventId, string name, string palestrantes, string starting, string ending, 
-            string description, string manager)
+        }
+        public SubEvent(int id, int eventId, string name, string starting, string ending, 
+            string description)
         {
             this.id = id;
             this.eventId = eventId;
@@ -27,18 +28,14 @@ namespace EBE_Backend.Classes
             this.starting = starting;
             this.ending = ending;
             this.description = description;
-            this.manager = manager;
-            this.palestrantes = palestrantes;
         }
 
         public string Name { get => name; set => name = value; }
         public string Starting { get => starting; set => starting = value; }
         public string Ending { get => ending; set => ending = value; }
         public string Description { get => description; set => description = value; }
-        public string Palestrantes { get => palestrantes; set => palestrantes = value; }
         public int Id { get => id; set => id = value; }
         public int EventId { get => eventId; set => eventId = value; }
-        public string Manager { get => manager; set => manager = value; }
 
         ~SubEvent()
         {
@@ -59,9 +56,20 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "INSERT INTO SubEvent (idEvents, name, palestrantes_User_id, starting, ending, discription, manager) VALUES ( '" + this.eventId + "', '" +  this.name + "', '" + this.palestrantes + "', '" + this.starting + "', '" + this.ending + "', '" + this.description + "', '" + this.manager + "');";
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                cmd.CommandText = "INSERT INTO SubEvent (idEvents, name, starting, ending, description) VALUES ( @idEvents, @name, @starting, @ending, @description);";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@idEvents", this.eventId);
+                cmd.Parameters.AddWithValue("@name", this.name);
+                cmd.Parameters.AddWithValue("@starting", this.starting);
+                cmd.Parameters.AddWithValue("@ending", this.ending);
+                cmd.Parameters.AddWithValue("@description", this.description);
+
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("SubEvent cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {
@@ -91,8 +99,8 @@ namespace EBE_Backend.Classes
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id: {0}, idEvents: {1}, eventName: {2}, idPalestrantes: {3}, starting: {4}, ending: {5}, description: {6}, manager: {7}",
-                        reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
+                    Console.WriteLine("Id: {0}, idEvents: {1}, eventName: {2}, starting: {3}, ending: {4}, description: {5}",
+                        reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(4), reader.GetString(5), reader.GetString(6));
                 }
             }
             catch (Exception ex)
@@ -131,11 +139,9 @@ namespace EBE_Backend.Classes
                         this.id = reader.GetInt32(0);
                         this.eventId = reader.GetInt32(1);
                         this.name = reader.GetString(2);
-                        this.palestrantes = reader.GetString(3);
-                        this.starting = reader.GetString(4);
-                        this.ending = reader.GetString(5);
-                        this.description = reader.GetString(6); 
-                        this.manager = reader.GetString(7);
+                        this.starting = reader.GetString(3);
+                        this.ending = reader.GetString(4);
+                        this.description = reader.GetString(5); 
 
                     }
 
@@ -174,8 +180,14 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "update SubEvent set idEvents= '" + this.eventId + "', name = '" + this.name + "', palestrantes = '" + this.palestrantes 
-                    + "', starting = '" + this.starting + "', ending = '" + this.ending + "', description = '" + this.description + "', manager = '" + this.manager + "' where id =" + this.id + ";";
+                cmd.CommandText = "update SubEvent set idEvents= @idEvents, name = @name, starting = @starting, ending = @ending, description = @description where id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@idEvents", this.eventId);
+                cmd.Parameters.AddWithValue("@name", this.name);
+                cmd.Parameters.AddWithValue("@starting", this.starting);
+                cmd.Parameters.AddWithValue("@ending", this.ending);
+                cmd.Parameters.AddWithValue("@description", this.description);
+                cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Atualizado!");
             }
@@ -201,8 +213,9 @@ namespace EBE_Backend.Classes
 
             try
             {
-                cmd.CommandText = "delete from SubEvent where Id = " + this.id + ";";
-                cmd.ExecuteNonQuery();
+                cmd.CommandText = "delete from SubEvent where Id = @id;";
+                cmd.Prepare();
+                cmd.Parameters.AddWithValue("@id", this.id);
                 Console.WriteLine("id" + this.id + "deletado");
             }
             catch (Exception ex)

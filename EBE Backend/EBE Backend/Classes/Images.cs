@@ -10,6 +10,10 @@ namespace EBE_Backend.Classes
         int id, eventId;
         string url;
 
+        public Images ()
+        {
+
+        }
         public Images(int id, int eventId, string url)
         {
             this.id = id;
@@ -45,8 +49,13 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.Parameters.AddWithValue("@eventId", this.eventId);
                 cmd.Parameters.AddWithValue("@url", this.url);
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("Imagem cadastrada! Id: " + this.id);
             }
             catch (Exception ex)
             {

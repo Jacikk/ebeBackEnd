@@ -13,7 +13,10 @@ namespace EBE_Backend.Classes
             user_id;
 
         private bool confirmated;
+        public Subevent_has_User ()
+        {
 
+        }
         public Subevent_has_User(int id, int user_has_Events_id, int subevent_id, int user_id, bool confirmated)
         {
             this.id = id;
@@ -53,8 +56,12 @@ namespace EBE_Backend.Classes
                 cmd.Parameters.AddWithValue("@confirmated", this.confirmated);
                 cmd.Parameters.AddWithValue("@user_id", this.user_id);
 
-                cmd.ExecuteNonQuery();
-                Console.WriteLine("cadastrado!");
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows != 0)
+                {
+                    this.id = (int)cmd.LastInsertedId;
+                }
+                Console.WriteLine("SubEvent_has_user cadastrado! Id: " + this.id);
             }
             catch (Exception ex)
             {
