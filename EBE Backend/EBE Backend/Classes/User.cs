@@ -3,7 +3,6 @@ using System;
 using System.Dynamic;
 using MySql.Data.MySqlClient;
 using System.Runtime.CompilerServices;
-using MySql.Utility.Classes.MySqlX;
 using System.Collections;
 using System.Net.Http.Headers;
 
