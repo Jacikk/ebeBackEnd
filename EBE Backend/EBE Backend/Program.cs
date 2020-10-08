@@ -1,8 +1,12 @@
 ﻿using EBE_Backend.Controllers;
 using EBE_Backend.Classes;
+using EBE_Backend.WebServer;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using EBE_Backend.Controller;
+using System.Web;
+using System.Net;
 
 namespace EBE_Backend
 {
@@ -10,26 +14,15 @@ namespace EBE_Backend
     {
         static void Main()
         {
-            UserController UC = new UserController();
-            User user = new User();
-
-            //User user = new User(0, "Teste 14", true, "0014-12-12", "Cpf 14", "rg 14", 1, "teste 14", "1", "email 14", "Pw 14", "description 14", "Medic 14", "avatar 14", "refee 14", 14, 1); ;
-
-            try
+            var r = 0;
+            while (r == 0)
             {
+                ConnectionHandler connectionHandler = new ConnectionHandler();
                 
-                string json = UC.Show(14);
-
-                Console.WriteLine(json);
-                
+                connectionHandler.httplistener();
             }
-            catch(Exception exception)
-            {
-                Console.WriteLine(exception);
-              
-            }
+            
         }
 
- 
-    }
+    }   
 }

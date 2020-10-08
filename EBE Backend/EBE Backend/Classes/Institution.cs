@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using MySql.Data.MySqlClient;
+using System.Collections;
 
 namespace EBE_Backend.Classes
 {
@@ -111,7 +112,7 @@ namespace EBE_Backend.Classes
 
         }
 
-        public void ReadTable()
+        public ArrayList ReadTable()
         {
             string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
 
@@ -124,16 +125,25 @@ namespace EBE_Backend.Classes
             using var cmd = new MySqlCommand(statement, connection);
 
             using MySqlDataReader reader = cmd.ExecuteReader();
-
+            ArrayList InsList = new ArrayList();
             try
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id {0}, Name {1}, CNPJ {2}, email {3}, password {4}, description {5}, avatarUrl {6}",
-                        reader.GetInt32(0), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
-                    this.address.GetById(reader.GetInt32(1));
-                    Console.WriteLine("cep:" + this.address.Cep + " Numero: " + reader.GetInt32(8) + " cidade: " + this.address.City + " pais: " + this.address.Country + " rua: " + this.address.Street + " estado: " + this.address.State + " bairro: " + this.address.District + " referencia: " + reader.GetString(9));
-                   
+                    Institution inst = new Institution();
+
+                    inst.id = reader.GetInt32(0);
+                    inst.addressId = reader.GetInt32(1);
+                    inst.name = reader.GetString(2);
+                    inst.cnpj = reader.GetString(3);
+                    inst.email = reader.GetString(4);
+                    inst.password = reader.GetString(5);
+                    inst.description = reader.GetString(6);
+                    inst.avatarUrl = reader.GetString(7);
+                    inst.addressNumber = reader.GetInt32(8);
+                    inst.addressReference = reader.GetString(9);
+
+                    InsList.Add(inst);
                 }
             }
             catch (Exception ex)
@@ -144,6 +154,7 @@ namespace EBE_Backend.Classes
             {
                 connection.Close();
             }
+            return InsList;
         }
 
         public Institution GetById(int id)

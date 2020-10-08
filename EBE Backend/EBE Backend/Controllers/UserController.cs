@@ -26,6 +26,7 @@ namespace EBE_Backend.Controllers
         public string Create(string jsonString)
         {
             User user = JsonToUser(jsonString);
+
             user.Create();
 
             jsonString = JsonSerializer.Serialize(user);
@@ -95,7 +96,9 @@ namespace EBE_Backend.Controllers
 
                     return jsonString;
                 }
-                user.Delete(id);
+                user.ID = id;
+
+                user.Delete();
 
                 return "Deletado com Sucesso";
             }

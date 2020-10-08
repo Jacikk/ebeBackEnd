@@ -1,8 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace EBE_Backend.Controllers
 {
@@ -12,12 +13,12 @@ namespace EBE_Backend.Controllers
         {
             Address address = JsonSerializer.Deserialize<Address>(jsonString);
 
-            return Address;
+            return address;
         }
 
-        public string AddressToJson(Address Address)
+        public string UserToJson(Address address)
         {
-            string jsonString = JsonSerializer.Serialize(Address);
+            string jsonString = JsonSerializer.Serialize(address);
             Console.WriteLine(jsonString);
 
             return jsonString;
@@ -26,9 +27,10 @@ namespace EBE_Backend.Controllers
         public string Create(string jsonString)
         {
             Address address = JsonToAddress(jsonString);
-            Address.Create();
 
-            jsonString = JsonSerializer.Serialize(Address);
+            address.Create();
+
+            jsonString = JsonSerializer.Serialize(address);
 
             return jsonString;
         }
@@ -38,12 +40,12 @@ namespace EBE_Backend.Controllers
 
             try
             {
-                Address.GetById(id);
+                address.GetById(id);
 
 
-                if (Address != null)
+                if (address != null)
                 {
-                    string jsonString = JsonSerializer.Serialize(Address);
+                    string jsonString = JsonSerializer.Serialize(address);
                     return jsonString;
                 }
                 else
@@ -66,16 +68,16 @@ namespace EBE_Backend.Controllers
         public string Edit(string jsonString)
         {
             Address address = JsonSerializer.Deserialize<Address>(jsonString);
-            Address.Update();
+            address.Update();
 
-            jsonString = JsonSerializer.Serialize(Address);
+            jsonString = JsonSerializer.Serialize(address);
 
             return jsonString;
         }
         public string Index()
         {
             Address address = new Address();
-            ArrayList Indexlist = Address.ReadTable();
+            ArrayList Indexlist = address.ReadTable();
 
             string jsonString = JsonSerializer.Serialize(Indexlist);
 
@@ -83,19 +85,20 @@ namespace EBE_Backend.Controllers
         }
         public string Delete(int id)
         {
-            Address Address = new Address();
+            Address address = new Address();
 
             try
             {
-                Address.GetById(id);
-                if (Address == null)
+                address.GetById(id);
+                if (address == null)
                 {
                     Error error = new Error("Nao encontrado");
                     string jsonString = JsonSerializer.Serialize(error);
 
                     return jsonString;
                 }
-                Address.Delete(id);
+                address.Id = id;
+                address.Delete();
 
                 return "Deletado com Sucesso";
             }

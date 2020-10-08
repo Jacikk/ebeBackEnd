@@ -28,12 +28,10 @@ namespace EBE_Backend.Controller
             {
                 throw new Exception("CPF field is invalid");
             }
-
             if (string.IsNullOrWhiteSpace(cpf)) //Para str de cpf
             {
                 throw new Exception("CPF field is missing");
-            }
-
+            } 
             if (Regex.IsMatch(cpf, @"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"))
             {
                 throw new Exception("CPF field is invalid");
@@ -43,7 +41,7 @@ namespace EBE_Backend.Controller
         {
             if (cnpj.Length != 14)
             {
-                throw new Exception("CNPJF field is invalid");
+                throw new Exception("CNPJ field is invalid");
             }
 
             if (string.IsNullOrWhiteSpace(cnpj)) //Para str de cpf

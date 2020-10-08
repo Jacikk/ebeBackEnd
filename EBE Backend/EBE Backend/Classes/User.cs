@@ -2,9 +2,8 @@
 using System;
 using System.Dynamic;
 using MySql.Data.MySqlClient;
-using System.Runtime.CompilerServices;
 using System.Collections;
-using System.Net.Http.Headers;
+using System.Text.Json.Serialization;
 
 namespace EBE_Backend
 {
@@ -72,6 +71,7 @@ namespace EBE_Backend
             address.GetById(addressId);
             institution.GetById(institutionId);
         }
+
 
         public int ID { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -276,11 +276,9 @@ namespace EBE_Backend
                 Connection = connection
             };
 
-          
-
             try
             {
-                cmd.CommandText = "update User set addressId = @addressId, name = @name, birthDate, sex = @sex, cpf = @cpf, rg = @rg, institution = @instituion, role = @role, acesslevel = @nivelDeAcesso, email = @email, password = @password, description = @description, medicalCares = @medicalCares, avatar = @avatar, addressNumber = @addressNumber, addressReference = @addressReference, where id = @id;";
+                cmd.CommandText = "update User set addressId = @addressId, name = @name, birthDate= @birthDate, sex = @sex, cpf = @cpf, rg = @rg, institution = @institution, role = @role, acesslevel = @nivelDeAcesso, email = @email, password = @password, description = @description, medicalCares = @medicalCares, avatar = @avatar, addressNumber = @addressNumber, addressReference = @addressReference where id = @id;";
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@addressId", this.addressId);
                 cmd.Parameters.AddWithValue("@name", this.name);
@@ -312,7 +310,7 @@ namespace EBE_Backend
                 connection.Close();
             }
         }
-        public void Delete(int id)
+        public void Delete()
         {
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
 
@@ -329,7 +327,7 @@ namespace EBE_Backend
                 cmd.Prepare();
                 cmd.Parameters.AddWithValue("@id", this.id);
                 cmd.ExecuteNonQuery();
-                Console.WriteLine("id" + this.id + "deletado");
+                Console.WriteLine("id " + this.id + " deletado");
             }
             catch (Exception ex)
             {

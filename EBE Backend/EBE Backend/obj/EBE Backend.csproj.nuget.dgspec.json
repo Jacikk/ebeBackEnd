@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\caiov\\Desktop\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj": {}
+    "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend (2)\\EBE Backend\\EBE Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\caiov\\Desktop\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj": {
+    "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend (2)\\EBE Backend\\EBE Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\caiov\\Desktop\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
+        "projectUniqueName": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend (2)\\EBE Backend\\EBE Backend.csproj",
         "projectName": "EBE Backend",
-        "projectPath": "C:\\Users\\caiov\\Desktop\\ebeBackEnd\\EBE Backend\\EBE Backend\\EBE Backend.csproj",
-        "packagesPath": "C:\\Users\\caiov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\caiov\\Desktop\\ebeBackEnd\\EBE Backend\\EBE Backend\\obj\\",
+        "projectPath": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend (2)\\EBE Backend\\EBE Backend.csproj",
+        "packagesPath": "C:\\Users\\vinic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vinic\\Desktop\\EbeBackendGit\\ebeBackEnd\\EBE Backend (2)\\EBE Backend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\caiov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vinic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -70,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

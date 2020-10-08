@@ -1,5 +1,6 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
+using System.Collections;
 
 namespace EBE_Backend
 {
@@ -88,7 +89,7 @@ namespace EBE_Backend
             }
 
         }
-        public void ReadTable()
+        public ArrayList ReadTable()
         {
             string url = @"server=localhost;userid=Jacik;password=1234;database=ebedata";
 
@@ -102,12 +103,22 @@ namespace EBE_Backend
 
             using MySqlDataReader reader = cmd.ExecuteReader();
 
+            ArrayList AddressList = new ArrayList();
+
             try
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id: {0}, cep: {1}, city: {2}, coountry: {3}, street: {4}, state: {5}, district: {6}",
-                        reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6));
+                    Address AdsToList = new Address();
+                    AdsToList.id = reader.GetInt32(0);
+                    AdsToList.cep = reader.GetString(1);
+                    AdsToList.city = reader.GetString(2);
+                    AdsToList.country = reader.GetString(3);
+                    AdsToList.street = reader.GetString(4);
+                    AdsToList.state = reader.GetString(5);
+                    AdsToList.district = reader.GetString(6);
+
+                    AddressList.Add(AdsToList);
                 }
             }
             catch (Exception ex)
@@ -118,6 +129,8 @@ namespace EBE_Backend
             {
                 connection.Close();
             }
+
+            return AddressList;
         }
 
         public Address GetById(int id)
