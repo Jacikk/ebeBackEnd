@@ -41,19 +41,17 @@ namespace EBE_Backend.Controllers
             {
                 user.GetById(id);
 
-
-                if(user != null)
-                {
-                    string jsonString = JsonSerializer.Serialize(user);
-                    return jsonString;
-                }
-                else
+                if( (user == null) || (user.ID == default) )
                 {
                     Error error = new Error("Nao encontrado");
                     string jsonString = JsonSerializer.Serialize(error);
                     return jsonString;
                 }
-                
+                else
+                {
+                    string jsonString = JsonSerializer.Serialize(user);
+                    return jsonString;
+                }
             }
             catch (Exception ex)
             {

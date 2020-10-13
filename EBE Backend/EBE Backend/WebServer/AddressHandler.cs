@@ -33,11 +33,11 @@ namespace EBE_Backend.WebServer
             response.AddHeader("Access-Control-Max-Age", "86400");
 
             Address address = new Address();
-            Controllers.UserController userController = new Controllers.UserController();
+            UserController userController = new UserController();
 
             string responseString = userController.Show(15);
 
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+            byte[] buffer = Encoding.UTF8.GetBytes(responseString);
 
             response.ContentLength64 = buffer.Length;
             System.IO.Stream output = response.OutputStream;

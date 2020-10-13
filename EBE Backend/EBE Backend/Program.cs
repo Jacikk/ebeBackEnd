@@ -14,12 +14,18 @@ namespace EBE_Backend
     {
         static void Main()
         {
+            ConnectionHandler connectionHandler = new ConnectionHandler();
             var r = 0;
             while (r == 0)
             {
-                ConnectionHandler connectionHandler = new ConnectionHandler();
-                
-                connectionHandler.httplistener();
+                try
+                {
+                    connectionHandler.Httplistener();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
             
         }

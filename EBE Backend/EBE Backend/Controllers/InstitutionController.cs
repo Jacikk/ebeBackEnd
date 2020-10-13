@@ -9,9 +9,7 @@ using System.Collections;
 namespace EBE_Backend.Controllers
 {
     class InstitutionController
-    {
-        private string jsonString;
-
+    { 
         public Institution JsonToInstitution(string jsonString)
         {
             Institution institution = JsonSerializer.Deserialize<Institution>(jsonString);

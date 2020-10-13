@@ -4,6 +4,7 @@ using System.Dynamic;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Text.Json.Serialization;
+using System.Reflection.Metadata.Ecma335;
 
 namespace EBE_Backend
 {
@@ -265,7 +266,7 @@ namespace EBE_Backend
             }
             
         }
-        public void Update( )
+        public User Update( )
         {
             using var connection = new MySqlConnection(@"server=localhost;userid=Jacik;password=1234;database=ebedata");
 
@@ -298,7 +299,7 @@ namespace EBE_Backend
                 cmd.Parameters.AddWithValue("@addressReference", this.addressReference);
                 cmd.Parameters.AddWithValue("@id",this.id);
                 cmd.ExecuteNonQuery();
-                Console.WriteLine("Atualizado!");
+                Console.WriteLine("Atualizado!  ");
                 
             }
             catch (Exception ex)
@@ -309,6 +310,7 @@ namespace EBE_Backend
             {
                 connection.Close();
             }
+            return this;
         }
         public void Delete()
         {
