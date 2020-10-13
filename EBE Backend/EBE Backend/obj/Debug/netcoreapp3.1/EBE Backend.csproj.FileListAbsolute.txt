@@ -124,3 +124,9 @@ C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend (2)\EBE Backend\obj\
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend (2)\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.dll
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend (2)\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.pdb
 C:\Users\vinic\Desktop\EbeBackendGit\ebeBackEnd\EBE Backend (2)\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.genruntimeconfig.cache
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csprojAssemblyReference.cache
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.AssemblyInfoInputs.cache
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.AssemblyInfo.cs
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.csproj.CoreCompileInputs.cache
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.dll
+C:\Users\caiov\Desktop\ebeBackEnd\EBE Backend\EBE Backend\obj\Debug\netcoreapp3.1\EBE Backend.pdb

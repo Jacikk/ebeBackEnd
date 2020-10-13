@@ -1,4 +1,5 @@
 using System;
+using EBE_Backend.Classes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -34,7 +35,7 @@ namespace EBE_Backend.Controllers
         }
         public string Show(int id)
         {
-            Event event = new Event();
+            Event Event = new Event();
 
             try
             {
@@ -65,7 +66,7 @@ namespace EBE_Backend.Controllers
 
         public string Edit(string jsonString)
         {
-            Event event = JsonSerializer.Deserialize<Event>(jsonString);
+            Event Event = JsonSerializer.Deserialize<Event>(jsonString);
             Event.Update();
 
             jsonString = JsonSerializer.Serialize(Event);
@@ -74,7 +75,7 @@ namespace EBE_Backend.Controllers
         }
         public string Index()
         {
-            Event event = new Event();
+            Event Event = new Event();
             ArrayList Indexlist = Event.ReadTable();
 
             string jsonString = JsonSerializer.Serialize(Indexlist);
@@ -83,7 +84,7 @@ namespace EBE_Backend.Controllers
         }
         public string Delete(int id)
         {
-            Event event = new Event();
+            Event Event = new Event();
 
             try
             {
